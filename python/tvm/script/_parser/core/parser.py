@@ -327,6 +327,9 @@ class Parser(doc.NodeVisitor):
                 vars = vars.union(res)
             return vars
         elif isinstance(target, doc.Name):
+            var_values = self.var_table.get()
+            if target.id in var_values.keys():
+                return True
             return {target.id}
         else:
             self.report_error(target, "Invalid type in assign statement")
